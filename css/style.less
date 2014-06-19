@@ -1,0 +1,197 @@
+@import "font-awesome.min.css";
+
+@import "normalize.css";
+@import "mixins.less";
+
+@headerheight: 44px;
+@sidewidth: 250px;
+@margin: 10px;
+
+@sidebg: #333;
+@sidecolor: #ccc;
+
+@headerbg: #ddd;
+@headercolor: #333;
+
+@contentbg: #fff;
+@contentcolor: #333;
+
+@import "themes/wireframe.less";
+
+body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+
+	main {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+
+	&, nav, section {
+		height: 100%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+	&.animate {
+		nav {
+			.transform(~"translate3d(-20px, 0, 0) !important");
+			.transitiontransform(.5s, 0s);
+		}
+
+		section {
+			.transform(~"translate3d(100%, 0, 0) !important");
+			.transitiontransform(0s, .8s);
+		}
+
+		section.back {
+			.transform(~"translate3d(-100%, 0, 0) !important");
+			.transitiontransform(0s, 0s);
+		}
+
+		section.current {
+			.transform(~"translate3d(0, 0, 0) !important");
+			.transitiontransform(.5s, 0s);
+		}
+
+		&.out {
+			nav {
+				.transform(~"translate3d(0, 0, 0) !important");
+			}
+
+			section.current {
+				.transform(~"translate3d(250px, 0, 0) !important");
+			}
+		}
+	}
+
+	nav, section .content {
+		overflow: auto;
+		overflow-x: hidden;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	nav {
+		width: @sidewidth;
+		background: @sidebg;
+		color: @sidecolor;
+
+		.button {
+			text-align: left;
+		}
+	}
+
+	.button {
+		line-height: @headerheight;
+		height: @headerheight;
+		min-width: @headerheight;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		display: block;
+		padding: 0 @margin;
+		color: inherit;
+
+		.ellipsis;
+		.border-box;
+
+		i {
+			line-height: @headerheight !important;
+		}
+	}
+
+	section {
+		z-index: 1;
+		width: 100%;
+		display: none;
+
+		.transform(translate3d(100%, 0, 0));
+
+		&.current {
+			z-index: 2;
+			display: block;
+		}
+
+		header, footer, .content {
+			position: absolute;
+			width: 100%;
+		}
+
+		header {
+			height: @headerheight;
+			background: @headerbg;
+			color: @headercolor;
+			z-index: 1;
+
+			.button {
+				float: right;
+				position: relative;
+
+				&.sidetoggle, &.back {
+					float: left;
+				}
+			}
+
+			h2 {
+				line-height: @headerheight;
+				margin: 0;
+				padding: 0 @margin;
+
+				.ellipsis;
+			}
+		}
+
+		footer {
+			height: @headerheight;
+			background: @headerbg;
+			color: @headercolor;
+			z-index: 1;
+			bottom: 0;
+		}
+
+		.content {
+			background: @contentbg;
+			color: @contentcolor;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+
+			* {
+				max-width: 100%;
+			}
+
+			.button {
+				float: left;
+
+				&.wide {
+					width: 100%;
+				}
+
+				&.right {
+					float: right;
+				}
+			}
+		}
+
+		header ~ .content {
+			top: @headerheight;
+		}
+
+		footer ~ .content {
+			bottom: @headerheight;
+		}
+	}
+}
+
+@import "debug.less";

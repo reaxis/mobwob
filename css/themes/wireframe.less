@@ -1,0 +1,230 @@
+/*@sidebg: #333;
+@sidecolor: #ccc;
+@headerbg: #ddd;
+@headercolor: #000;
+@contentbg: #fff;
+@contentcolor: #000;*/
+
+main {
+	.button {
+		background: rgba(0, 0, 0, 0.1);
+		// .button-background(yellow, blue, 5px, 10px);
+		.button-background();
+	}
+
+	nav {
+	}
+
+	section {
+		header {
+			.button {
+				&.back:before {
+					font-family: FontAwesome;
+					content: "";
+				}
+
+				&.sidetoggle:before {
+					font-family: FontAwesome;
+					content: "";
+				}
+			}
+		}
+
+		.content {
+		}
+	}
+}
+
+/*
+section {
+	header {
+		.button {
+			padding: 0 16px;
+			position: relative;
+
+			&:after {
+				content: "";
+				display: block;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: -1;
+				border: @margin/2 solid transparent;
+				.border-radius(@margin);
+				.box-shadow(~"inset 0 0 0 1px #000, inset 0 0 0 50px #fff");
+				.border-box;
+
+				@media (-webkit-min-device-pixel-ratio: 2) {
+					.box-shadow(~"inset 0 1px 1px -1px #000, inset 1px 0 1px -1px #000, inset 0 -1px 1px -1px #000, inset -1px 0 1px -1px #000, inset 0 0 0 50px #fff");
+				}
+			}
+		}
+	}
+
+	.content {
+		.item {
+			.button {
+				padding: 0 16px;
+				position: relative;
+				background: none;
+
+				&:after {
+					content: "";
+					display: block;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					left: 0;
+					top: 0;
+					z-index: 0;
+					border: @margin/2 solid transparent;
+					.border-radius(@margin);
+					.box-shadow(~"inset 0 0 0 1px #000, inset 0 0 0 50px #fff");
+					.border-box;
+
+					@media (-webkit-min-device-pixel-ratio: 2) {
+						.box-shadow(~"inset 0 1px 1px -1px #000, inset 1px 0 1px -1px #000, inset 0 -1px 1px -1px #000, inset -1px 0 1px -1px #000, inset 0 0 0 50px #fff");
+					}
+				}
+
+				i {
+					z-index: 1;
+					position: relative;
+				}
+			}
+		}
+	}
+
+	.path-plus {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 1;
+
+		display: block;
+
+		width: 100px;
+		height: 100px;
+
+		input[type="checkbox"] {
+			display: none;
+
+			& + label, & ~ .button {
+				.transitiontransform;
+
+				position: absolute;
+				z-index: 1;
+				
+				text-align: center;
+				line-height: @headerheight;
+
+				&:after {
+					content: "";
+					display: block;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					left: 0;
+					top: 0;
+					z-index: -1;
+					border: @margin/2 solid transparent;
+					.border-radius(@headerheight);
+					.box-shadow(~"inset 0 0 0 1px #000, inset 0 0 0 50px #fff");
+					.border-box;
+
+					@media (-webkit-min-device-pixel-ratio: 2) {
+						.box-shadow(~"inset 0 1px 1px -1px #000, inset 1px 0 1px -1px #000, inset 0 -1px 1px -1px #000, inset -1px 0 1px -1px #000, inset 0 0 0 50px #fff");
+					}
+				}
+			}
+
+			& + label {
+				width: @headerheight*1.5;
+				height: @headerheight*1.5;
+				line-height: @headerheight*1.5;
+
+				left: 0;
+				bottom: 0;
+			}
+
+			& ~ .button {
+				width: @headerheight;
+				height: @headerheight;
+
+				left: 12px;
+				bottom: 12px;
+
+				z-index: -1;
+
+				.transform(translate3d(0, 0, 0) rotate(0deg));
+			}
+
+			&:checked {
+				& + label {
+					.transform(rotate(3*45deg));
+				}
+
+				& ~ .button {
+					@dist: 120px;
+					@speed: .25s;
+					@delay: .25s;
+
+					&:first-of-type {
+						.transform(translate3d(0, -@dist, 0) rotate(360deg));
+						.transitiontransform(@speed, 0s);
+					}
+
+					&:last-of-type {
+						.transform(translate3d(@dist, 0, 0) rotate(360deg));
+						.transitiontransform(@speed, @delay);
+					}
+
+					// three items
+					&:first-of-type:nth-last-of-type(3),
+					&:first-of-type:nth-last-of-type(3) ~ .button {
+						&:nth-of-type(2) {
+							.transform(translate3d(@dist*cos(90deg/2), -@dist*sin(90deg/2), 0) rotate(360deg));
+							.transitiontransform(@speed, @delay/2);
+						}
+					}
+
+					// four items
+					&:first-of-type:nth-last-of-type(4),
+					&:first-of-type:nth-last-of-type(4) ~ .button {
+						&:nth-of-type(2) {
+							.transform(translate3d(@dist*cos(2*90deg/3), -@dist*sin(2*90deg/3), 0) rotate(360deg));
+							.transitiontransform(@speed, @delay/3);
+						}
+
+						&:nth-of-type(3) {
+							.transform(translate3d(@dist*cos(90deg/3), -@dist*sin(90deg/3), 0) rotate(360deg));
+							.transitiontransform(@speed, 2*@delay/3);
+						}
+					}
+
+					// five items
+					&:first-of-type:nth-last-of-type(5),
+					&:first-of-type:nth-last-of-type(5) ~ .button {
+						&:nth-of-type(2) {
+							.transform(translate3d(@dist*cos(3*90deg/4), -@dist*sin(3*90deg/4), 0) rotate(360deg));
+							.transitiontransform(@speed, @delay/4);
+						}
+
+						&:nth-of-type(3) {
+							.transform(translate3d(@dist*cos(2*90deg/4), -@dist*sin(2*90deg/4), 0) rotate(360deg));
+							.transitiontransform(@speed, 2*@delay/4);
+						}
+
+						&:nth-of-type(4) {
+							.transform(translate3d(@dist*cos(90deg/4), -@dist*sin(90deg/4), 0) rotate(360deg));
+							.transitiontransform(@speed, 3*@delay/4);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+*/

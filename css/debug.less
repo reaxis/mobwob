@@ -1,0 +1,59 @@
+body.debug {
+	background: black;
+
+	&.animate {
+		nav, section, section.current, &.out nav, &.out section.current {
+			.transform(~"translate3d(0, 0, 0) !important");
+		}
+	}
+
+	main {
+		overflow: auto;
+		padding-left: @sidewidth;
+		.border-box;
+
+		nav, section {
+			position: static;
+			float: left;
+			display: block !important;
+		}
+
+		nav {
+			position: fixed;
+			left: 0;
+			top: 0;
+			height: 100%;
+		}
+
+		section {
+			width: 320px;
+			height: 530px;
+			border: 5px solid #000;
+			margin-top: 25px;
+			
+			&.current {
+				border-color: red;
+
+				&:before {
+					background: red;
+				}
+			}
+
+			&:before {
+				position: absolute;
+				color: white;
+				content: attr(id);
+				z-index: 2;
+				top: -25px;
+				margin-left: -5px;
+				padding: 0 5px;
+				max-width: 100%;
+				.ellipsis;
+			}
+		}
+	}
+
+	&.iphone5 main section {
+		height: 568px;
+	}
+}
